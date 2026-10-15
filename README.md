@@ -49,3 +49,7 @@ Fork → clone → branch → PR → **Review → Merge**
 - 异常检测
 - 链上/链下数据汇总
 - 决策可追溯
+
+## 本地交互原型
+
+本地原型提供聊天首页、任务预算摘要和详情抽屉，并通过 DSH Harness 进行实际聊天；采购付款、链上操作和报告交付仍为模拟，不代表 WalletConnect、多签或审计功能已实现。运行 `npm start` 后访问 <http://127.0.0.1:4173>；启动与依赖说明见 [docs/local-agentguard-demo.md](docs/local-agentguard-demo.md)。
