@@ -12,6 +12,40 @@
   <div id="app"></div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <dialog id="modal" class="dialog" aria-labelledby="dialog-title"></dialog>
+
+  <a id="chain-jump" class="chain-jump" href="./monad.html">链上账本 ↗</a>
+
   <script src="./app.js"></script>
+  <script>
+    // 两个网页之间的跳转协同：把本地助手的状态带到链上账本页
+    (function () {
+      var jump = document.getElementById('chain-jump');
+      if (!jump) return;
+      jump.addEventListener('click', function (event) {
+        var params = new URLSearchParams();
+        try {
+          var raw = JSON.parse(localStorage.getItem('agentguard-chat-v2') || 'null');
+          var s = raw && raw.state ? raw.state : null;
+          if (s) {
+            // 金额字段为整数毫 MON，1000 毫 MON = 1 MON
+            if (typeof s.spent === 'number') params.set('spent', String(s.spent));
+            if (typeof s.balance === 'number') params.set('budget', String(s.balance));
+            if (typeof s.balance === 'number' && typeof s.spent === 'number') {
+              params.set('remaining', String(s.balance - s.spent));
+            }
+            if (Array.isArray(s.orders) && s.orders.length) {
+              var last = s.orders[s.orders.length - 1];
+              if (last && last.id) params.set('order', String(last.id));
+            }
+            if (s.currentTask) params.set('decision', String(s.currentTask).slice(0, 120));
+          }
+        } catch (error) {
+          // 读取不到本地状态时直接跳转，不阻断
+        }
+        var query = params.toString();
+        jump.href = query ? './monad.html?' + query : './monad.html';
+      });
+    })();
+  </script>
 </body>
 </html>

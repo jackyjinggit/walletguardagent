@@ -3,3 +3,6 @@
 @media(max-width:420px){.app-header{padding:0 10px;gap:6px}.product-title{display:none}.header-actions{flex:none;gap:5px}.header-btn{white-space:nowrap;flex:none}}
 .model-state{border:0;background:transparent;padding:0;cursor:pointer}
 @media(max-width:700px){.header-btn.new-chat{display:inline-flex}}
+.chain-jump{position:fixed;z-index:60;right:18px;bottom:18px;display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border-radius:999px;border:1px solid var(--green);background:var(--green);color:#fff;font-size:11px;text-decoration:none;box-shadow:0 8px 22px #176b5030}
+.chain-jump:hover{background:var(--green-dark)}
+@media(max-width:700px){.chain-jump{right:12px;bottom:12px;padding:8px 11px;font-size:10px}}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8faf8">
+  <meta name="description" content="采购账本公示与决策可验证（Monad 链上页面）。">
+  <title>采购账本公示 · 决策可验证</title>
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .monad-page{max-width:760px;margin:0 auto;padding:34px 20px 60px}
+    .monad-head h1{font-size:22px;font-weight:600;letter-spacing:-.5px}
+    .monad-head p{font-size:11px;color:var(--muted);margin-top:7px}
+    .monad-section{margin-top:26px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:17px 18px}
+    .monad-section h2{font-size:12px;font-weight:600}
+    .monad-section p{font-size:11px;color:#849087;line-height:1.8;margin-top:7px}
+    .monad-placeholder{margin-top:11px;padding:11px 12px;border-radius:8px;background:var(--pale);color:#93a097;font-size:10px}
+    .monad-link{display:inline-flex;align-items:center;gap:6px;margin-top:11px;font-size:11px;color:var(--green)}
+    .monad-link:hover{text-decoration:underline;text-underline-offset:3px}
+    .monad-foot{margin-top:26px;display:flex;gap:9px;flex-wrap:wrap}
+    .kv{margin-top:12px;display:grid;gap:8px}
+    .kv-row{display:flex;justify-content:space-between;gap:12px;font-size:10px}
+    .kv-row span{color:#8d9991}
+    .kv-row b{font-weight:550;text-align:right;overflow-wrap:anywhere}
+  </style>
+</head>
+<body>
+  <div class="monad-page">
+    <header class="monad-head">
+      <h1>采购账本公示 · 决策可验证</h1>
+      <p>Monad 链上页面</p>
+    </header>
+
+    <main>
+      <section class="monad-section">
+        <h2>账本公示</h2>
+        <p>采购订单与花费明细上链公示，供审计与追溯。</p>
+        <div class="monad-placeholder">账本数据接入中（当前为占位）</div>
+      </section>
+
+      <section class="monad-section">
+        <h2>决策可验证</h2>
+        <p>决策 hash 上链，可验证且不可篡改。</p>
+        <div class="monad-placeholder">决策记录接入中（当前为占位）</div>
+      </section>
+
+      <section class="monad-section">
+        <h2>协同参数</h2>
+        <p>从本地助手跳转时携带的参数（订单 / 决策 / 预算）。</p>
+        <div class="kv" id="kv"></div>
+      </section>
+
+      <section class="monad-section">
+        <h2>链上浏览</h2>
+        <p>在 Monad 测试网浏览器中查看交易与合约。</p>
+        <a class="monad-link" href="https://testnet.monadexplorer.com" target="_blank" rel="noopener">Monad 测试网浏览器 ↗</a>
+      </section>
+    </main>
+
+    <footer class="monad-foot">
+      <a class="btn" href="./index.html">← 返回本地助手</a>
+    </footer>
+  </div>
+
+  <script>
+    // 协同：读取本地助手跳转时携带的参数
+    (function () {
+      var box = document.getElementById('kv');
+      var params = new URLSearchParams(location.search);
+      var keys = ['order', 'decision', 'budget', 'spent', 'remaining'];
+      var rows = [];
+      keys.forEach(function (k) {
+        var v = params.get(k);
+        if (v) rows.push('<div class="kv-row"><span>' + k + '</span><b>' + v + '</b></div>');
+      });
+      box.innerHTML = rows.length
+        ? rows.join('')
+        : '<div class="kv-row"><span>状态</span><b>未携带参数（直接访问）</b></div>';
+    })();
+  </script>
+</body>
+</html>
